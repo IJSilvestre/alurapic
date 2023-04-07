@@ -3,6 +3,7 @@ import { IPhoto } from '../photo/Iphoto';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { PhotoService } from '../photo/photo.service';
 
 @Component({
   selector: 'app-photo-list',
@@ -12,16 +13,34 @@ import { debounceTime } from 'rxjs/operators';
 export class PhotoListComponent implements OnInit, OnDestroy {
   photos: IPhoto[] = [];
   filter: string = '';
+  hasMore: boolean = true;
+  currentPage: number = 1;
+  userName: string = '';
 
   debounce: Subject<string> = new Subject<string>();
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private photoService: PhotoService
+  ) {}
 
   setVlrFilter(vlrFilter: string) {
     this.debounce.next(vlrFilter);
   }
+  showMore() {
+    this.photoService
+      .listFromUserPaginated(this.userName, ++this.currentPage)
+      .subscribe((photos) => {
+        this.photos = this.photos.concat(photos);
+        if (!photos.length) {
+          this.hasMore = false;
+        }
+      });
+  }
 
   ngOnInit(): void {
+    this.userName = this.activatedRoute.snapshot.params['userName'];
+
     // this.photos = this.activatedRoute.snapshot.data['photos'];
     this.activatedRoute.data.subscribe(({ photos }) => {
       this.photos = photos;

@@ -12,5 +12,5 @@ export const photoListResolver: ResolveFn<IPhoto[]> = (
   state: RouterStateSnapshot
 ) => {
   const userName = route.params['userName'];
-  return inject(PhotoService).listFromUser(userName);
+  return inject(PhotoService).listFromUserPaginated(userName, 1);
 };
