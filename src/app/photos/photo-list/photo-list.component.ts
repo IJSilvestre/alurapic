@@ -47,7 +47,6 @@ export class PhotoListComponent implements OnInit, OnDestroy {
     });
 
     this.debounce.pipe(debounceTime(300)).subscribe((vlr) => {
-      console.log(vlr);
       this.filter = vlr;
     });
   }
