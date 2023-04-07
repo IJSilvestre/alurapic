@@ -2,11 +2,12 @@
   <form>
     <input
       name="filter"
-      [(ngModel)]="filter"
       type="search"
+      #name
       class="rounded"
       placeholder="procurar..."
       autofocus
+      (keyup)="setVlrFilter(name.value)"
     />
   </form>
 </div>
