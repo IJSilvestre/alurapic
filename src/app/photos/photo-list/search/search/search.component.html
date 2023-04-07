@@ -1,0 +1,14 @@
+<div class="text-center mt-3 mb-3">
+  <form>
+    <i aria-hidden="true" class="bi bi-search me-2"></i>
+    <input
+      name="filter"
+      class="rounded"
+      type="search"
+      #name
+      placeholder="procurar..."
+      autofocus
+      (keyup)="setVlrFilter(name.value)"
+    />
+  </form>
+</div>

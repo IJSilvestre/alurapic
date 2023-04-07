@@ -1,15 +1,3 @@
-<div class="text-center mt-3 mb-3">
-  <form>
-    <input
-      name="filter"
-      type="search"
-      #name
-      class="rounded"
-      placeholder="procurar..."
-      autofocus
-      (keyup)="setVlrFilter(name.value)"
-    />
-  </form>
-</div>
+<app-search (onTyping)="filter = $event"></app-search>
 <app-photos [photos]="photos | filterByDescription : filter"></app-photos>
 <app-load-button [hasMore]="hasMore" (click)="showMore()"></app-load-button>

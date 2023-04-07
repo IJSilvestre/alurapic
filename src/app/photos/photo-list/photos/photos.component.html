@@ -1,13 +1,21 @@
-<p class="text-center text-muted" *ngIf="!photos.length">
-  Foto não encontrada
-</p>
+<p class="text-center text-muted" *ngIf="!photos.length">Foto não encontrada</p>
 <ol class="list-unstyled">
-  <li *ngFor="let cols of rows" class="row">
+  <li *ngFor="let cols of rows" class="row g-0">
     <div *ngFor="let photo of cols" class="col-4">
-      <app-photo
-        [url]="photo.url"
-        [description]="photo.description"
-      ></app-photo>
+      <app-card>
+        <app-photo
+          [url]="photo.url"
+          [description]="photo.description"
+        ></app-photo>
+        <div class="mb-2">
+          <i aria-hidden="true" class="bi bi-heart me-2 p-2">
+            {{ photo.likes }}</i
+          >
+          <i aria-hidden="true" class="bi bi-chat ms-2 p-2">
+            {{ photo.comments }}</i
+          >
+        </div>
+      </app-card>
     </div>
   </li>
 </ol>
