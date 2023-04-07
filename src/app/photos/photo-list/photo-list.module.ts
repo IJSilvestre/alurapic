@@ -7,6 +7,7 @@ import { PhotosComponent } from './photos/photos.component';
 import { PhotoModule } from '../photo/photo.module';
 import { SearchComponent } from './search/search/search.component';
 import { CardModule } from 'src/app/shared/components/card/card.module';
+import { DarkOnHoverDirective } from 'src/app/shared/directives/darken-on-hover/dark-on-hover.directive';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { CardModule } from 'src/app/shared/components/card/card.module';
     PhotosComponent,
     LoadButtonComponent,
     FilterByDescriptionPipe,
-    SearchComponent
+    SearchComponent,
+    DarkOnHoverDirective,
   ],
   imports: [CommonModule, PhotoModule, CardModule],
 })
