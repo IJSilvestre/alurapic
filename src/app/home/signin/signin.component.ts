@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SigninComponent implements OnInit {
   formUser = inject(FormBuilder).group({
     userName: ['', Validators.required],
-    password: ['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(8)]],
   });
 
   constructor() {}
@@ -21,9 +21,7 @@ export class SigninComponent implements OnInit {
   }
 
   fieldValidTouched(field: string) {
-    return (
-      this.formUser.get(field)?.touched && this.formUser.get(field)?.valid
-    );
+    return this.formUser.get(field)?.touched && this.formUser.get(field)?.valid;
   }
 
   fieldInvalidTouched(field: string) {
@@ -40,7 +38,6 @@ export class SigninComponent implements OnInit {
   }
 
   addCss(field: string) {
-    console.log(this.validateField(field));
     return this.validateField(field);
   }
 }
