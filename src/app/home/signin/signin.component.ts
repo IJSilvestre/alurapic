@@ -39,7 +39,7 @@ export class SigninComponent implements OnInit {
     const userName = this.formUser.get('userName')?.value ?? ``;
     const password = this.formUser.get('password')?.value ?? ``;
     this.autyService.authenticate(userName, password).subscribe({
-      next: (vlr) => {
+      next: (vlr ) => {
         this.router.navigate(['user', userName]);
       },
       error: (err: HttpErrorResponse) => {
