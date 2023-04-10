@@ -3,6 +3,7 @@
 <form [formGroup]="formUser" (ngSubmit)="onSubmit()" class="form mt-4">
   <div class="form-group">
     <input
+      #userNameInput
       name="userName"
       formControlName="userName"
       class="form-control"
@@ -22,7 +23,12 @@
       placeholder="password"
       [ngClass]="addCss('password')"
     />
-    <div *ngIf="formUser.get('password')?.hasError('required')" class="invalid-feedback">Por favor informe a senha.</div>
+    <div
+      *ngIf="formUser.get('password')?.hasError('required')"
+      class="invalid-feedback"
+    >
+      Por favor informe a senha.
+    </div>
     <div
       *ngIf="formUser.get('password')?.hasError('minlength')"
       class="invalid-feedback"

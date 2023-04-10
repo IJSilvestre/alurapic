@@ -1,5 +1,16 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { PlataformDetectorService } from 'src/app/core/pataform-detector/plataform-detector.service';
 
 @Component({
   selector: 'app-signin',
@@ -9,15 +20,35 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SigninComponent implements OnInit {
   formUser = inject(FormBuilder).group({
     userName: ['', Validators.required],
-    password: ['', [Validators.required, Validators.minLength(8)]],
+    password: ['', [Validators.required, Validators.minLength(3)]],
   });
 
-  constructor() {}
+  @ViewChild('userNameInput') userNameInput:
+    | ElementRef<HTMLInputElement>
+    | undefined;
+
+  constructor(
+    private autyService: AuthService,
+    private router: Router,
+    private platformDetectorService: PlataformDetectorService
+  ) {}
 
   ngOnInit() {}
 
   onSubmit() {
-    console.log(this.formUser.get('password')?.value);
+    const userName = this.formUser.get('userName')?.value ?? ``;
+    const password = this.formUser.get('password')?.value ?? ``;
+    this.autyService.authenticate(userName, password).subscribe({
+      next: (vlr) => {
+        this.router.navigate(['user', userName]);
+      },
+      error: (err: HttpErrorResponse) => {
+        console.log(err.error);
+        this.formUser.reset();
+        this.platformDetectorService.isPlatformBrowser() &&
+          this.userNameInput?.nativeElement.focus();
+      },
+    });
   }
 
   fieldValidTouched(field: string) {
