@@ -2,12 +2,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import {
   Component,
   ElementRef,
-  Inject,
   OnInit,
   ViewChild,
   inject,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder,  Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { PlataformDetectorService } from 'src/app/core/pataform-detector/plataform-detector.service';
